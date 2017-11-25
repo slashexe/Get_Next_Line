@@ -1,5 +1,5 @@
-#include "../include/libft.h"
-#include "../include/fillit.h"
+#include "../includes/libft.h"
+#include "../includes/get_next_line.h"
 
 
 int		main(int argc, char **argv)
@@ -15,7 +15,7 @@ int		main(int argc, char **argv)
 		return (0);
 	while (get_next_line(fd, &line) == 1)
 	{
-		ft_putendl(line);
+		//ft_putendl(line);
 		free(line);
 	}
 	if (argc == 2)

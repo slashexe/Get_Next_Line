@@ -1,5 +1,5 @@
-#include "../include/libft.h"
-#include "../include/get_next_line.h"
+#include "../includes/libft.h"
+#include "../includes/get_next_line.h"
 
 char	*joinchar(char const *s1, char c)
 {
@@ -43,7 +43,7 @@ static	int		ft_copyuntil(char **dst, char *src, char c)
 	return (pos);
 }
 
-int				get_next_line(const int fd, char **line);
+int				get_next_line(const int fd, char **line)
 {
 	char	buf[BUFF_SIZE + 1];
 	t_list	*curr;
@@ -52,12 +52,15 @@ int				get_next_line(const int fd, char **line);
 
 	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
 		return (-1);
+	//curr = NULL;
+	//printf("%s||\n\n", curr);
 	curr = ft_lstnew("\0", fd);
-	if ((*line = ft_stnew(1)) == 0)
+	if ((*line = ft_strnew(1)) == 0)
 		return (-1);
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
+		printf(" |%d|%s|| \n", ret,buf);
 		if ((curr->content = ft_strjoin(curr->content, buf)) == 0)
 			return (-1);
 		if (strchr(buf, '\n'))
