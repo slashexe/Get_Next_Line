@@ -54,13 +54,15 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	//curr = NULL;
 	//printf("%s||\n\n", curr);
+	//fct pour curr rest du text mit apres length
+	ft_savedata(&curr, BUFF_SIZE);
 	curr = ft_lstnew("\0", fd);
 	if ((*line = ft_strnew(1)) == 0)
 		return (-1);
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
-		printf(" |%d|%s|| \n", ret,buf);
+		//printf(" |%d|%s|| \n", ret,buf);
 		if ((curr->content = ft_strjoin(curr->content, buf)) == 0)
 			return (-1);
 		if (strchr(buf, '\n'))
