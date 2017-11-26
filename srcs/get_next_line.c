@@ -43,6 +43,22 @@ static	int		ft_copyuntil(char **dst, char *src, char c)
 	return (pos);
 }
 
+static	t_list	*ft_savedata(t_list **file, fd)
+{
+	t_list	tmp;
+
+	tmp = file;
+	while (tmp)
+	{
+		if ((int)tmp->content_size == fd)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	tmp = ft_lstnew("\0", fd);
+	ft_lstadd(file, tmp);
+	return (*file);
+}
+
 int				get_next_line(const int fd, char **line)
 {
 	char	buf[BUFF_SIZE + 1];
@@ -55,8 +71,8 @@ int				get_next_line(const int fd, char **line)
 	//curr = NULL;
 	//printf("%s||\n\n", curr);
 	//fct pour curr rest du text mit apres length
-	ft_savedata(&curr, BUFF_SIZE);
-	curr = ft_lstnew("\0", fd);
+	curr = ft_savedata(&file, fd);
+	//curr = ft_lstnew("\0", fd);
 	if ((*line = ft_strnew(1)) == 0)
 		return (-1);
 	while ((ret = read(fd, buf, BUFF_SIZE)))
