@@ -43,7 +43,7 @@ static	int		ft_copyuntil(char **dst, char *src, char c)
 	return (pos);
 }
 
-static	t_list	*ft_savedata(t_list **file, fd)
+static	t_list	*ft_savedata(t_list **file, int fd)
 {
 	t_list	*tmp;
 
@@ -62,10 +62,10 @@ static	t_list	*ft_savedata(t_list **file, fd)
 
 int				get_next_line(const int fd, char **line)
 {
-	char	buf[BUFF_SIZE + 1];
-	t_list	*curr;
-	t_list	*file;
-	int		ret;
+	char			buf[BUFF_SIZE + 1];
+	t_list			*curr;
+	static t_list	*file;
+	int				ret;
 
 	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
 		return (-1);
