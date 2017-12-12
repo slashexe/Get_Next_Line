@@ -4,6 +4,7 @@
 
 
 # define BUFF_SIZE 20
+# define MALL(x) if (!x) return (-1);
 
 int		get_next_line(const int fd, char **line);
 #endif

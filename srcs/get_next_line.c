@@ -60,6 +60,10 @@ static	t_list	*ft_savedata(t_list **file, fd)
 	return (tmp);
 }
 
+/*
+**fct pour curr rest du text mit apres length
+*/
+
 int				get_next_line(const int fd, char **line)
 {
 	char	buf[BUFF_SIZE + 1];
@@ -69,32 +73,19 @@ int				get_next_line(const int fd, char **line)
 
 	if ((fd < 0 || line == NULL || read(fd, buf, 0) < 0))
 		return (-1);
-	//curr = NULL;
-	//printf("%s||\n\n", curr);
-	//fct pour curr rest du text mit apres length
 	curr = ft_savedata(&file, fd);
-	if ((*line = ft_strnew(1)) == 0)
-		return (-1)
-	if ((curr->content = ft_strjoin(curr->content, buf)) == 0)
-			return (-1);
-	//curr = ft_lstnew("\0", fd);
-	if ((*line = ft_strnew(1)) == 0)
-		return (-1);
+	MALL(*line = ft_strnew(1));
 	while ((ret = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[ret] = '\0';
-		//printf(" |%d|%s|| \n", ret,buf);
-		if ((curr->content = ft_strjoin(curr->content, buf)) == 0)
-			return (-1);
+		MALL(curr->content = ft_strjoin(curr->content, buf));
 		if (strchr(buf, '\n'))
 			break ;
 	}
 	if (ret < BUFF_SIZE && !ft_strlen(curr->content))
 		return (0);
 	ret = ft_copyuntil(line, curr->content, '\n');
-	if (ret < (int)ft_strlen(curr->content))
-		curr->content += (ret + 1);
-	else
-		ft_strclr(curr->content);
+	(ret < (int)ft_strlen(curr->content)) ? \
+		curr->content += (ret + 1) : ft_strclr(curr->content);
 	return (1);
 }
